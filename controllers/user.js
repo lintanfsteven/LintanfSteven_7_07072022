@@ -19,7 +19,7 @@ exports.getOneUser = (req, res, next) => {
 
 exports.updateUser = async (req, res) => {
   if (!ObjectId.isValid(req.params.id))
-    return res.status(400).send("ID unknown : " + req.params.id);
+    return res.status(400).send("ID invalid : " + req.params.id);
 
   try {
     await UserModel.findOneAndUpdate(
@@ -29,13 +29,11 @@ exports.updateUser = async (req, res) => {
           bio: req.body.bio,
         },
       },
-      { new: true, upsert: true, setDefaultsOnInsert: true },
-      (err, docs) => {
-        if (!err) return res.send(docs);
-        if (err) return res.status(500).send({ message: err });
-      }
-    );
+      { new: true, upsert: true, setDefaultsOnInsert: true }
+    )
+      .then((docs) => res.send(docs))
+      .catch((err) => res.status(500).send({ message: err }));
   } catch (err) {
-    return res.status(500).json({ message: err });
+    res.status(500).json({ message: err });
   }
 };
