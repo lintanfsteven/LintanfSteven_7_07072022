@@ -17,7 +17,7 @@ exports.getOneUser = (req, res, next) => {
   }).select("-password");
 };
 
-exports.updateUser = async (req, res, next) => {
+exports.updateUser = async (req, res) => {
   if (!ObjectId.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
