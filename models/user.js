@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { isEmail } = require("validator");
+const bcrypt = require("bcrypt");
 
 const userSchema = mongoose.Schema({
   pseudo: {
@@ -14,6 +15,7 @@ const userSchema = mongoose.Schema({
     required: true,
     validate: [isEmail],
     unique: true,
+    lowercase: true,
   },
   password: {
     type: String,
@@ -23,6 +25,7 @@ const userSchema = mongoose.Schema({
   },
   picture: {
     type: String,
+    default: "./uploads/profil/random-user.png",
   },
   bio: {
     type: String,
@@ -35,3 +38,15 @@ const userSchema = mongoose.Schema({
     type: [String],
   },
 });
+
+//
+
+userSchema.pre("save", async function (next) {
+  const salt = await bcrypt.genSalt();
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
+
+const UserModel = mongoose.model("user", userSchema);
+
+module.exports = UserModel;

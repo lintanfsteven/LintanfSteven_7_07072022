@@ -7,6 +7,6 @@ exports.signUp = async (req, res) => {
     const user = await UserModel.create({ pseudo, email, password });
     res.status(201).json({ user: user._id });
   } catch (err) {
-    res.status(200).send({ err });
+    res.status(401).send({ err });
   }
 };
