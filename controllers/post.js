@@ -1,6 +1,6 @@
 const PostModel = require("../models/post");
 const UserModel = require("../models/post");
-const ObjectID = require("mongoose").Types.ObjectId;
+const ObjectId = require("mongoose").Types.ObjectId;
 
 exports.readPost = (req, res, next) => {
   PostModel.find((err, docs) => {
@@ -10,7 +10,7 @@ exports.readPost = (req, res, next) => {
 };
 
 exports.createPost = async (req, res, next) => {
-  const newPost = new postModel({
+  const newPost = new PostModel({
     posterId: req.body.posterId,
     message: req.body.message,
     video: req.body.video,
@@ -26,6 +26,31 @@ exports.createPost = async (req, res, next) => {
   }
 };
 
-exports.updatePost = (req, res, next) => {};
+exports.updatePost = (req, res, next) => {
+  if (!ObjectId.isValid(req.params.id))
+    return res.status(400).send("ID unknown : " + req.params.id);
 
-exports.deletePost = (req, res, next) => {};
+  const updatedRecord = {
+    message: req.body.message,
+  };
+
+  PostModel.findByIdAndUpdate(
+    req.params.id,
+    { $set: updatedRecord },
+    { new: true },
+    (err, docs) => {
+      if (!err) res.send(docs);
+      else console.log("Update error : " + err);
+    }
+  );
+};
+
+exports.deletePost = (req, res, next) => {
+  if (!ObjectId.isValid(req.params.id))
+    return res.status(400).send("ID unknown : " + req.params.id);
+
+  PostModel.findByIdAndRemove(req.params.id, (err, docs) => {
+    if (!err) res.send(docs);
+    else console.log("Delete error : " + err);
+  });
+};
