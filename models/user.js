@@ -6,8 +6,8 @@ const userSchema = mongoose.Schema({
   pseudo: {
     type: String,
     required: true,
-    minLength: 3,
-    maxLength: 30,
+    minlength: 3,
+    maxlength: 30,
     unique: true,
   },
   email: {
@@ -21,7 +21,7 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
     max: 1000,
-    minLength: 6,
+    minlength: 6,
   },
   picture: {
     type: String,
