@@ -3,7 +3,7 @@ import Log from "../components/Log";
 
 const Profil = () => {
   return (
-    <div className="profile-page">
+    <div className="profil-page">
       <div className="log-container">
         <Log />
         <div className="img-container">
