@@ -10,7 +10,7 @@ const index = () => {
       <Routes>
         <Route path="/" exact component={Home} />
         <Route path="/profil" exact component={Profil} />
-        <Navigate to="/notFound" />
+        <Navigate to="/" />
       </Routes>
     </Router>
   );
