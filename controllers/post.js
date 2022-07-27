@@ -1,6 +1,9 @@
 const PostModel = require("../models/post");
 const UserModel = require("../models/post");
 const ObjectId = require("mongoose").Types.ObjectId;
+const fs = require("fs");
+const { promisify } = require("util");
+const pipeline = promisify(require("stream").pipeline);
 
 exports.readPost = (req, res, next) => {
   PostModel.find((err, docs) => {
@@ -10,9 +13,37 @@ exports.readPost = (req, res, next) => {
 };
 
 exports.createPost = async (req, res, next) => {
+  let fileName;
+
+  if (req.file != null) {
+    try {
+      if (
+        req.file.detectedMimetype != "image/jpg" &&
+        req.file.detectedMimetype != "image/png" &&
+        req.file.detectedMimetype != "image/jpeg"
+      )
+        throw Error("Invalid file");
+
+      if (req.file.size > 500000) throw Error("Max size");
+    } catch (err) {
+      const errors = uploadErrors(err);
+      return res.status(201).json({ errors });
+    }
+
+    fileName = req.body.posterId + Date.now() + ".jpg";
+
+    await pipeline(
+      req.file.stream,
+      fs.createWriteStream(
+        `${__dirname}/../client/public/uploads/profil/${fileName}`
+      )
+    );
+  }
+
   const newPost = new PostModel({
     posterId: req.body.posterId,
     message: req.body.message,
+    picture: req.file != null ? "./uploads/posts/" + fileName : "",
     video: req.body.video,
     likers: [],
     comments: [],
