@@ -22,7 +22,7 @@ const App = () => {
     fetchToken();
 
     if (uid) dispatch(getUser);
-  }, [uid]);
+  }, [dispatch, uid]);
 
   return (
     <UidContext.Provider value={uid}>
