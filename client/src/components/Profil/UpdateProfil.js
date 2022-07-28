@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import LeftNav from "../Routes/LeftNav";
+import LeftNav from "../LeftNav";
 
 const UpdateProfil = () => {
   const userData = useSelector((state) => state.userReducer);
