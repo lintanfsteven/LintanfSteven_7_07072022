@@ -15,7 +15,7 @@ const LeftNav = () => {
           </NavLink>
           <br />
           <NavLink to="/" className="active-left-nav">
-            <img src="./img/icons/home.svg" alt="home page" />
+            <img src="./img/icons/user.svg" alt="home page" />
           </NavLink>
         </div>
       </div>
