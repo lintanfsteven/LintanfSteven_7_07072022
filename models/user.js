@@ -2,42 +2,47 @@ const mongoose = require("mongoose");
 const { isEmail } = require("validator");
 const bcrypt = require("bcrypt");
 
-const userSchema = mongoose.Schema({
-  pseudo: {
-    type: String,
-    required: true,
-    minlength: 3,
-    maxlength: 30,
-    unique: true,
+const userSchema = mongoose.Schema(
+  {
+    pseudo: {
+      type: String,
+      required: true,
+      minlength: 3,
+      maxlength: 30,
+      unique: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      validate: [isEmail],
+      unique: true,
+      lowercase: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      max: 1000,
+      minlength: 6,
+    },
+    picture: {
+      type: String,
+      default: "./uploads/profil/random-user.png",
+    },
+    bio: {
+      type: String,
+      max: 1500,
+    },
+    followers: {
+      type: [String],
+    },
+    following: {
+      type: [String],
+    },
   },
-  email: {
-    type: String,
-    required: true,
-    validate: [isEmail],
-    unique: true,
-    lowercase: true,
-  },
-  password: {
-    type: String,
-    required: true,
-    max: 1000,
-    minlength: 6,
-  },
-  picture: {
-    type: String,
-    default: "./uploads/profil/random-user.png",
-  },
-  bio: {
-    type: String,
-    max: 1500,
-  },
-  followers: {
-    type: [String],
-  },
-  following: {
-    type: [String],
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 // salt password
 userSchema.pre("save", async function (next) {

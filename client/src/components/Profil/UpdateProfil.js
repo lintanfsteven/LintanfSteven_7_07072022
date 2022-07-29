@@ -49,6 +49,7 @@ const UpdateProfil = () => {
               </>
             )}
           </div>
+          <h4>Membre depuis le : {userData.createdAt}</h4>
         </div>
       </div>
     </div>
