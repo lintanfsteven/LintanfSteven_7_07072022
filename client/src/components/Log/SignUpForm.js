@@ -29,7 +29,7 @@ const SignUpForm = () => {
           "Les mots de passe ne correspondent pas";
 
       if (!terms.checked)
-        termsError.innerHTML = "Veuillez valider les conditions générales";
+        termsError.innerHTML = "Veuillez accepter les conditions générales";
     } else {
       await axios({
         method: "post",
@@ -41,6 +41,7 @@ const SignUpForm = () => {
         },
       })
         .then((res) => {
+          console.log(res);
           if (res.data.errors) {
             pseudoError.innerHTML = res.data.errors.pseudo;
             emailError.innerHTML = res.data.errors.email;
@@ -52,6 +53,7 @@ const SignUpForm = () => {
         .catch((err) => console.log(err));
     }
   };
+
   return (
     <>
       {formSubmit ? (
@@ -59,7 +61,7 @@ const SignUpForm = () => {
           <SignInForm />
           <span></span>
           <h4 className="success">
-            Enregistrement réussi, veuillez-vous connectez
+            Enregistrement réussi, veuillez-vous connecter
           </h4>
         </>
       ) : (
@@ -97,7 +99,7 @@ const SignUpForm = () => {
           />
           <div className="password error"></div>
           <br />
-          <label htmlFor="password-conf">Confirmer le mot de passe</label>
+          <label htmlFor="password-conf">Confirmer mot de passe</label>
           <br />
           <input
             type="password"
@@ -111,7 +113,7 @@ const SignUpForm = () => {
           <input type="checkbox" id="terms" />
           <label htmlFor="terms">
             J'accepte les{" "}
-            <a href="/" target="_blank" rel="noopener nereferrer">
+            <a href="/" target="_blank" rel="noopener noreferrer">
               conditions générales
             </a>
           </label>
