@@ -49,7 +49,6 @@ const Card = ({ post }) => {
             <div className="card-footer">
               <div className="comment-icon">
                 <img src="./img/icons/message1.svg" alt="comment" />
-                <span>{post.comment.length}</span>
               </div>
               <h6>Like button</h6>
               <img src="./img/icons/share.svg" alt="share" />
