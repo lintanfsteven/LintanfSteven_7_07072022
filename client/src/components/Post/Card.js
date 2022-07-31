@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { dateParser, isEmpty } from "../Utils";
+import LikeButton from "./LikeButton";
 
 const Card = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -50,7 +51,7 @@ const Card = ({ post }) => {
               <div className="comment-icon">
                 <img src="./img/icons/message1.svg" alt="comment" />
               </div>
-              <h6>Like button</h6>
+              <LikeButton post={post} />
               <img src="./img/icons/share.svg" alt="share" />
             </div>
           </div>
