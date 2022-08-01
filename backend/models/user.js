@@ -24,6 +24,10 @@ const userSchema = mongoose.Schema(
       max: 1000,
       minlength: 6,
     },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
     picture: {
       type: String,
       default: "./uploads/profil/random-user.png",
