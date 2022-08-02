@@ -8,6 +8,9 @@ Ce site doit correspondre aux spécifications et au cahier des charges :
  - produire un site responsive aux formats mobile, tablette et desktop.
 
 <h2>Installation :</h2>
+
+https://github.com/lintanfsteven/LintanfSteven_7_07072022
+
 - Clonez le repo ci-dessus dans un dossier. <br>
 - Pour lancer le backend, naviguez jusqu'au répertoire en question (ex: DossierPrincipal/backend/" et exécutez les commandes suivantes : <br> 
  > npm install <br>
