@@ -3,7 +3,7 @@
 Le projet 7 Groupomania d'Openclassrooms est un projet qui consiste à créer un réseau social d'entreprise dans son intégralité (back + front).
 Ce site doit correspondre aux spécifications et au cahier des charges :
  - coder uniquement en javascript,
- - utiliser un framework de notre choix pour le frontend (Angular, Vue, React),
+ - utiliser obligatoirement un framework javascript (de notre choix) pour le frontend (Angular, Vue, React),
  - respecter l'identité graphique fournie,
  - produire un site responsive aux formats mobile, tablette et desktop.
 
