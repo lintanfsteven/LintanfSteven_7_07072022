@@ -43,8 +43,7 @@ exports.createPost = async (req, res, next) => {
   const newPost = new PostModel({
     posterId: req.body.posterId,
     message: req.body.message,
-    picture: req.file != null ? "./uploads/posts/" + fileName : "",
-    video: req.body.video,
+    picture: req.file !== null ? "./uploads/posts/" + fileName : "",
     likers: [],
     comments: [],
   });
@@ -57,26 +56,28 @@ exports.createPost = async (req, res, next) => {
   }
 };
 
-exports.updatePost = (req, res, next) => {
+exports.updatePost = async (req, res, next) => {
   if (!ObjectId.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
-  const updatedRecord = {
-    message: req.body.message,
-  };
-
-  PostModel.findByIdAndUpdate(
-    req.params.id,
-    { $set: updatedRecord },
-    { new: true },
-    (err, docs) => {
-      if (!err) res.send(docs);
-      else console.log("Update error : " + err);
+  const postId = req.params.id;
+  const { userId } = req.body;
+  const user = await UserModel.findOne({ isAdmin: true });
+  try {
+    const post = await PostModel.findById(postId);
+    if (post.userId === userId || user.isAdmin) {
+      await post.updateOne({ $set: req.body });
+      res.status(200).json("Post Updated !");
+    } else {
+      res.status(403).json("Action forbidden !");
     }
-  );
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
 };
 
-exports.deletePost = (req, res, next) => {
+exports.deletePost = async (req, res, next) => {
   if (!ObjectId.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
