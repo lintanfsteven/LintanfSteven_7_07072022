@@ -25,6 +25,7 @@ exports.checkUser = (req, res, next) => {
 
 exports.requireAuth = (req, res, next) => {
   const token = req.cookies.jwt;
+  console.log(token);
   if (token) {
     jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
       if (err) {
@@ -35,6 +36,6 @@ exports.requireAuth = (req, res, next) => {
       }
     });
   } else {
-    console.log("No token");
+    console.log("No token why?");
   }
 };

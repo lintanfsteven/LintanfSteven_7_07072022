@@ -13,7 +13,6 @@ const SignInForm = () => {
     axios({
       method: "post",
       url: `${process.env.REACT_APP_API_URL}api/user/login`,
-      withCredentials: true,
       data: {
         email,
         password,
@@ -38,7 +37,7 @@ const SignInForm = () => {
       <label htmlFor="email">Email</label>
       <br />
       <input
-        type="text"
+        type="email"
         name="email"
         id="email"
         onChange={(e) => setEmail(e.target.value)}

@@ -8,6 +8,7 @@ const Log = (props) => {
 
   const handleModals = (e) => {
     if (e.target.id === "register") {
+      console.log("Register")
       setSignInModal(false);
       setSignUpModal(true);
     } else if (e.target.id === "login") {
